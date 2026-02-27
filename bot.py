@@ -25,29 +25,29 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # -------- RECORDATORIO NORMAL --------
 async def recordar(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if len(context.args) < 2:
-        await update.message.reply_text("Uso: /recordar <segundos> <mensaje>")
+        await update.message.reply_text("Uso: /recordar <minutos> <mensaje>")
         return
 
-    segundos = int(context.args[0])
+    minutos = int(context.args[0]) * 60
     mensaje = " ".join(context.args[1:])
     chat_id = update.effective_chat.id
 
-    await asyncio.sleep(segundos)
+    await asyncio.sleep(minutos)
     await context.bot.send_message(chat_id, f"⏰ Recordatorio:\n{mensaje}")
 
 # -------- RECORDATORIO URGENTE --------
 async def urgente(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if len(context.args) < 2:
-        await update.message.reply_text("Uso: /urgente <segundos> <mensaje>")
+        await update.message.reply_text("Uso: /urgente <minutos> <mensaje>")
         return
 
-    segundos = int(context.args[0])
+    minutos = int(context.args[0]) * 60
     mensaje = " ".join(context.args[1:])
     chat_id = update.effective_chat.id
 
     await update.message.reply_text("⚠️ Recordatorio urgente programado.")
 
-    await asyncio.sleep(segundos)
+    await asyncio.sleep(minutos)
 
     async def spam():
         while chat_id in urgent_tasks:
