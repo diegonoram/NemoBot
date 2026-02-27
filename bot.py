@@ -117,8 +117,16 @@ async def detener_urgente(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # -------- MAIN --------
+async def post_init(application):
+    await application.bot.delete_webhook(drop_pending_updates=True)
+
 def main():
-    app = ApplicationBuilder().token(TOKEN).build()
+    app = (
+        ApplicationBuilder()
+        .token(TOKEN)
+        .post_init(post_init)
+        .build()
+    )
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("recordar", recordar))
@@ -128,7 +136,7 @@ def main():
         MessageHandler(filters.TEXT & ~filters.COMMAND, detener_urgente)
     )
 
-    app.run_polling()
+    app.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":
