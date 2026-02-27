@@ -8,7 +8,7 @@ from telegram.ext import (
     filters,
 )
 
-TOKEN = "TU_TOKEN_AQUI"
+TOKEN = os.environ.get("BOT_TOKEN")
 
 # Guardamos alertas urgentes activas
 urgent_tasks = {}
