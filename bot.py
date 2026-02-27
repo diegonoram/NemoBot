@@ -32,6 +32,8 @@ async def recordar(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mensaje = " ".join(context.args[1:])
     chat_id = update.effective_chat.id
 
+    await update.message.reply_text("⚠️ Recordatorio programado.")
+
     await asyncio.sleep(segundos)
     await context.bot.send_message(chat_id, f"⏰ Recordatorio:\n{mensaje}")
 
